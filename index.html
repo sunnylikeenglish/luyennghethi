@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listening Practice PRO - Final Version</title>
+    <style>
+        :root { --primary: #4CAF50; --secondary: #2c3e50; --bg: #f4f7f6; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); padding: 20px; color: var(--secondary); }
+        .container { background: white; padding: 30px; border-radius: 15px; max-width: 1000px; margin: auto; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: var(--primary); margin-bottom: 25px; }
+        .controls { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; align-items: center; justify-content: center; }
+        select { padding: 10px; border-radius: 8px; border: 1px solid #ddd; font-size: 16px; min-width: 250px; }
+        iframe { width: 100%; height: 100px; border: 2px solid #eee; border-radius: 10px; margin-bottom: 20px; background: #fafafa; }
+        #exercise { line-height: 2; font-size: 18px; text-align: justify; background: #fff; padding: 20px; border: 1px dashed #ccc; border-radius: 10px; }
+        .blank { width: 130px; padding: 5px 10px; margin: 0 5px; border: 2px solid #ddd; border-radius: 6px; font-size: 16px; font-weight: 600; text-align: center; transition: all 0.3s; }
+        .blank:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 5px rgba(76, 175, 80, 0.3); }
+        .correct { border-color: #4CAF50 !important; background: #eaffea !important; color: #2e7d32; }
+        .wrong { border-color: #f44336 !important; background: #ffecec !important; color: #c62828; }
+        .btn-group { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 25px; }
+        button { padding: 12px 25px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; font-size: 15px; }
+        .btn-main { background: var(--primary); color: white; }
+        .btn-main:hover { background: #45a049; transform: translateY(-2px); }
+        .btn-sub { background: #3498db; color: white; }
+        .btn-sub:hover { background: #2980b9; }
+        .btn-danger { background: #e67e22; color: white; }
+        #score { text-align: center; font-size: 22px; margin-top: 20px; min-height: 30px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>🎧 Listening Practice PRO</h2>
+
+    <div class="controls">
+        <label>Bài học: </label>
+        <select id="lessonSelect" onchange="loadLesson(this.value)">
+            <option value="0">Lesson 1: Starting a Business</option>
+            <option value="1">Lesson 2: Customer Service</option>
+            <option value="2">Lesson 3: Teamwork</option>
+            <option value="3">Lesson 4: Communication</option>
+            <option value="4">Lesson 5: Motivation</option>
+        </select>
+    </div>
+
+    <iframe id="audio" src=""></iframe>
+
+    <div id="exercise"></div>
+
+    <div class="btn-group">
+        <button class="btn-main" onclick="generate()">Làm bài mới (Reset)</button>
+        <button class="btn-sub" onclick="check()">Kiểm tra đáp án</button>
+        <button class="btn-danger" onclick="showWrong()">Xem các từ hay sai</button>
+    </div>
+
+    <h3 id="score"></h3>
+</div>
+
+<script>
+let currentLesson = 0;
+
+const lessons = [
+    {
+        audio:"https://drive.google.com/file/d/1-8oGtT0TsMM9C-hwmkss2-VjD0_Xswnp/preview",
+        transcript:`Starting a small business can be both exciting and challenging, especially for people who are new to the world of entrepreneurship. Before opening a business, it's important to understand your customers and what they really need. Many new owners make the mistake of focusing only on their product, but forget to research the market. A successful business usually begins with a clear problem it can solve and a group of people willing to pay for that solution. Another key idea is planning. A good business plan doesn't need to be complicated but it should include your goals, your budget and your strategy for attracting customers. When you know how much money you need and how you will spend it, you can avoid many financial problems later on. Planning also helps you stay organized when unexpected situations happen, such as changes in prices or new competition. Communication is also essential. Whether you are selling online or in a physical store, customers want clear information and friendly service. If something goes wrong, they expect you to respond quickly and honestly. Good communication builds trust, and trust leads to long-term success and stronger customer relationships. Finally, remember that every business needs time to grow. You won't become successful overnight, so stay patient and flexible. Listen to feedback, watch your competitors, and keep improving your products or services. If you learn from your mistakes and continue to adapt, you will have a better chance of building a stable and successful business that can grow for many years.`,
+        fixed:["challenging","customers","successful","complicated","budget","organized","physical","honestly","feedback","adapt"]
+    },
+    {
+        audio:"https://drive.google.com/file/d/1RjhXJlscxcYPecTwAczEfrKSUh-S9-MS/preview",
+        transcript:`In today’s competitive market, customer service has become one of the most important parts of running a successful business. Many companies offer similar products, so what often makes a customer choose one brand over another is the quality of the service they receive. Good customer service does not only mean solving problems; it also means creating a positive experience from the moment a customer first contacts the company. To build strong customer service, businesses need to train their staff carefully. Employees should be able to listen actively, speak politely, and understand the needs of different customers. When customers feel respected, they are more likely to return and recommend the business to others. On the other hand, poor communication or slow responses can quickly damage a company’s reputation. Another key factor is transparency. Customers want honest information about prices, delivery times, and product details. If mistakes happen, companies should apologize clearly and offer a fair solution. This helps build trust, which is essential for long-term success. Brand reputation also depends on online interactions. Many customers share their opinions on social media or review websites. Businesses should monitor these platforms and respond professionally, especially when dealing with negative comments. A calm and helpful response can show other customers that the business takes responsibility. In the end, companies that invest in customer service often see better results. They create loyal customers, receive positive reviews and stand out from their competitors. A strong reputation can take years to build, but it can help a business grow steadily and confidently in the future.`,
+        fixed:["similar","experience","actively","communication","transparency","fair","monitor","responsibility","reviews","steadily"]
+    },
+    {
+        audio:"https://drive.google.com/file/d/1m338s1LwHBhh16LLawFdN_WNxJYsaucB/preview",
+        transcript:`Effective teamwork is one of the key elements that help a business operate smoothly and achieve long-term success. In many companies, employees work on different tasks, but they still need to communicate clearly and support one another. When team members share information on time and understand each other’s responsibilities, they can avoid confusion and complete their work more efficiently. Good internal communication also creates a more positive working environment. Employees who feel comfortable asking questions or sharing ideas are often more motivated and confident. This not only improves work performance but also helps build trust among team members. On the other hand, misunderstandings or lack of communication can lead to delays, mistakes, and unnecessary stress. Another important part of teamwork is collaboration. Successful teams listen to different opinions, discuss possible solutions, and make decisions together. Even when disagreements happen, respectful communication helps everyone stay focused on finding the best result. Many businesses also use digital tools such as messaging apps or project platforms to keep everyone updated, especially when working remotely. Leadership also plays a major role. A good leader guides the team, gives clear instructions, and ensures that every member knows their role. Leaders who encourage feedback and recognize employees efforts often create stronger and more productive teams. In the end, companies that invest in teamwork and communication usually perform better. They solve problems faster, deliver higher-quality work, and create a workplace where employees feel valued. A strong and cooperative team can help a business grow steadily and adapt to future challenges.`,
+        fixed:["success","support","efficiently","sharing","delays","collaboration","focused","remotely","feedback","valued"]
+    },
+    {
+        audio:"https://drive.google.com/file/d/1o8GP-GzDZUqNckMriss5f-Yc2MWjC4JL/preview",
+        transcript:`In many organizations, effective communication plays an important role in daily operations and long-term success. Employees need to exchange information clearly in order to coordinate tasks, solve problems, and make important decisions. One common challenge is information overload. Staff often receive large numbers of emails, messages, and reports, making it difficult to identify what is truly important. This approach helps reduce confusion and improves overall accuracy. Meetings are another area where communication quality matters. Effective meetings usually have a clear agenda, defined roles, and specific outcomes. When participants understand the purpose of a meeting, they are more likely to stay focused and contribute actively. Feedback is also essential for improvement. Constructive feedback should be given clearly and respectfully. This helps build trust and encourages professional development. Finally, communication should continue after decisions are made. Follow-up messages help clarify responsibilities and ensure progress. Employees are more confident and more willing to take responsibility. Overall, businesses that invest in strong communication practices often experience better teamwork, higher productivity, and more consistent performance in competitive environments.`,
+        fixed:["tasks","identify","accuracy","agenda","actively","constructive","development","clarify","willing","productivity"]
+    },
+    {
+        audio:"https://drive.google.com/file/d/17IIS-NNdLxPZt0Wi4t4tBWOUwI2NeQve/preview",
+        transcript:`Employee motivation is a key factor that influences productivity and overall business performance. When employees feel motivated, they are more likely to work actively, take responsibility, and contribute positively to their teams. In contrast, low motivation can lead to poor results, higher absenteeism, and increased staff turnover. One important element that affects motivation is recognition. Employees want their efforts to be noticed and creative. Simple actions, such as positive feedback or public praise, can improve morale and encourage continued effort. Fair reward systems also help employees feel that their work is valued and respected by the organization. Opportunities for development are another major factor. Many employees expect their companies to provide training and chances to improve their skills. When workers see clear career opportunities, they are more likely to stay with the company and invest effort in their roles. Without such opportunities, motivation may gradually loss. The working environment also plays a significant role. Supportive managers, clear communication, and respectful relationships help employees feel confident. Managers who listen to concerns and respond clarification can prevent small issues from becoming serious problems. Finally, motivation is closely related to work-life balance. Employees who manage their time well and maintain personal well-being are often more productive at work. Companies can support this by offering flexible schedule or realistic workloads. Overall, motivated employees tend to cooperate better, show stronger commitment to their organization, and achieve more consistent results. In the long term, motivation should be treated as a strategic quality for business success across all departments and organizational levels.`,
+        fixed:["actively","creative","valued","career","loss","clarification","related","schedule","results","quality"]
+    }
+];
+
+function randomPick(arr, n) {
+    let shuffled = [...arr].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, n);
+}
+
+function loadLesson(index) {
+    currentLesson = parseInt(index);
+    document.getElementById("audio").src = lessons[currentLesson].audio;
+    generate();
+}
+
+function generate() {
+    const lesson = lessons[currentLesson];
+    const text = lesson.transcript;
+    
+    // Bốc 5 từ cố định
+    const selectedFixed = randomPick(lesson.fixed, 5);
+    
+    // Tìm danh sách từ "vệ tinh" (dài hơn 5 ký tự và không nằm trong fixed)
+    const allWords = text.toLowerCase().replace(/[^a-z\s]/g, "").split(/\s+/);
+    const pool = [...new Set(allWords)].filter(w => w.length > 5 && !lesson.fixed.includes(w));
+    
+    // Bốc 5 từ ngẫu nhiên
+    const selectedRandom = randomPick(pool, 5);
+    
+    // Tổng hợp 10 từ mục tiêu
+    const targets = [...selectedFixed, ...selectedRandom];
+
+    const words = text.split(/\s+/);
+    let html = "";
+    let count = 0;
+    let filledWords = [];
+
+    for (let word of words) {
+        let clean = word.replace(/[^a-zA-Z]/g, "").toLowerCase();
+        let punc = word.replace(/[a-zA-Z]/g, "");
+
+        if (targets.includes(clean) && !filledWords.includes(clean) && count < 10) {
+            html += `<input class="blank" data-answer="${clean}" placeholder="..."> ${punc} `;
+            filledWords.push(clean);
+            count++;
+        } else {
+            html += word + " ";
+        }
+    }
+
+    document.getElementById("exercise").innerHTML = html;
+    document.getElementById("score").innerText = "";
+}
+
+function check() {
+    const inputs = document.querySelectorAll(".blank");
+    let correctCount = 0;
+    const key = "wrong_words_store";
+    let stored = JSON.parse(localStorage.getItem(key)) || [];
+
+    inputs.forEach(inp => {
+        inp.classList.remove("correct", "wrong");
+        const userVal = inp.value.trim().toLowerCase();
+        const correctVal = inp.dataset.answer;
+
+        if (userVal === correctVal) {
+            inp.classList.add("correct");
+            correctCount++;
+        } else {
+            inp.classList.add("wrong");
+            inp.value = correctVal; // Hiện đáp án đúng
+            if (!stored.includes(correctVal)) stored.push(correctVal);
+        }
+    });
+
+    localStorage.setItem(key, JSON.stringify(stored));
+    const scoreText = `Kết quả: ${correctCount}/${inputs.length} (${Math.round(correctCount/inputs.length*100)}%)`;
+    document.getElementById("score").innerText = scoreText;
+}
+
+function showWrong() {
+    const stored = JSON.parse(localStorage.getItem("wrong_words_store")) || [];
+    if (stored.length === 0) {
+        alert("Chưa có từ nào sai. Cố gắng phát huy nhé! 🎉");
+    } else {
+        alert("Các từ bạn đã từng làm sai: \n\n" + stored.join(", "));
+    }
+}
+
+// Khởi tạo bài đầu tiên khi load trang
+window.onload = () => loadLesson(0);
+</script>
+
+</body>
+</html>
