@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listening Practice PRO - Final Version</title>
+    <title>Listening Practice PRO - UEH Final</title>
     <style>
         :root { --primary: #4CAF50; --secondary: #2c3e50; --bg: #f4f7f6; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); padding: 20px; color: var(--secondary); }
@@ -12,7 +12,7 @@
         .controls { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; align-items: center; justify-content: center; }
         select { padding: 10px; border-radius: 8px; border: 1px solid #ddd; font-size: 16px; min-width: 250px; }
         iframe { width: 100%; height: 100px; border: 2px solid #eee; border-radius: 10px; margin-bottom: 20px; background: #fafafa; }
-        #exercise { line-height: 2; font-size: 18px; text-align: justify; background: #fff; padding: 20px; border: 1px dashed #ccc; border-radius: 10px; }
+        #exercise { line-height: 2.2; font-size: 18px; text-align: justify; background: #fff; padding: 20px; border: 1px dashed #ccc; border-radius: 10px; }
         .blank { width: 130px; padding: 5px 10px; margin: 0 5px; border: 2px solid #ddd; border-radius: 6px; font-size: 16px; font-weight: 600; text-align: center; transition: all 0.3s; }
         .blank:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 5px rgba(76, 175, 80, 0.3); }
         .correct { border-color: #4CAF50 !important; background: #eaffea !important; color: #2e7d32; }
@@ -20,9 +20,7 @@
         .btn-group { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 25px; }
         button { padding: 12px 25px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; font-size: 15px; }
         .btn-main { background: var(--primary); color: white; }
-        .btn-main:hover { background: #45a049; transform: translateY(-2px); }
         .btn-sub { background: #3498db; color: white; }
-        .btn-sub:hover { background: #2980b9; }
         .btn-danger { background: #e67e22; color: white; }
         #score { text-align: center; font-size: 22px; margin-top: 20px; min-height: 30px; }
     </style>
@@ -31,7 +29,6 @@
 
 <div class="container">
     <h2>🎧 Listening Practice PRO</h2>
-
     <div class="controls">
         <label>Bài học: </label>
         <select id="lessonSelect" onchange="loadLesson(this.value)">
@@ -42,17 +39,13 @@
             <option value="4">Lesson 5: Motivation</option>
         </select>
     </div>
-
     <iframe id="audio" src=""></iframe>
-
     <div id="exercise"></div>
-
     <div class="btn-group">
-        <button class="btn-main" onclick="generate()">Làm bài mới (Reset)</button>
+        <button class="btn-main" onclick="generate()">Làm bài mới (10 từ rải đều)</button>
         <button class="btn-sub" onclick="check()">Kiểm tra đáp án</button>
-        <button class="btn-danger" onclick="showWrong()">Xem các từ hay sai</button>
+        <button class="btn-danger" onclick="showWrong()">Xem từ hay sai bài này</button>
     </div>
-
     <h3 id="score"></h3>
 </div>
 
@@ -63,7 +56,7 @@ const lessons = [
     {
         audio:"https://drive.google.com/file/d/1-8oGtT0TsMM9C-hwmkss2-VjD0_Xswnp/preview",
         transcript:`Starting a small business can be both exciting and challenging, especially for people who are new to the world of entrepreneurship. Before opening a business, it's important to understand your customers and what they really need. Many new owners make the mistake of focusing only on their product, but forget to research the market. A successful business usually begins with a clear problem it can solve and a group of people willing to pay for that solution. Another key idea is planning. A good business plan doesn't need to be complicated but it should include your goals, your budget and your strategy for attracting customers. When you know how much money you need and how you will spend it, you can avoid many financial problems later on. Planning also helps you stay organized when unexpected situations happen, such as changes in prices or new competition. Communication is also essential. Whether you are selling online or in a physical store, customers want clear information and friendly service. If something goes wrong, they expect you to respond quickly and honestly. Good communication builds trust, and trust leads to long-term success and stronger customer relationships. Finally, remember that every business needs time to grow. You won't become successful overnight, so stay patient and flexible. Listen to feedback, watch your competitors, and keep improving your products or services. If you learn from your mistakes and continue to adapt, you will have a better chance of building a stable and successful business that can grow for many years.`,
-        fixed:["challenging","customers","successful","complicated","budget","organized","physical","honestly","feedback","adapt"]
+        fixed:["challenging","customers","successful","complicated","budget","organized","physical","expect","feedback","adapt"]
     },
     {
         audio:"https://drive.google.com/file/d/1RjhXJlscxcYPecTwAczEfrKSUh-S9-MS/preview",
@@ -77,111 +70,9 @@ const lessons = [
     },
     {
         audio:"https://drive.google.com/file/d/1o8GP-GzDZUqNckMriss5f-Yc2MWjC4JL/preview",
-        transcript:`In many organizations, effective communication plays an important role in daily operations and long-term success. Employees need to exchange information clearly in order to coordinate tasks, solve problems, and make important decisions. Without strong communication, even skilled teams may struggle to meet deadlines or achieve their goals. One common challenge is information overload. Staff often receive large numbers of emails, messages, and reports, making it difficult to identify what is truly important. This approach helps reduce confusion and improves overall efficiency. Meetings are another area where communication quality matters. Effective meetings usually have a clear agenda, defined roles, and specific outcomes. When participants understand the purpose of a meeting, they are more likely to stay focused and contribute actively. Feedback is also essential for improvement. Constructive feedback should be given clearly and respectfully. This helps build trust and encourages professional development. Finally, communication should continue after decisions are made. Follow-up messages help clarify responsibilities and ensure progress. Employees are more confident and more willing to take responsibility. Overall, businesses that invest in strong communication practices often experience better teamwork, higher productivity, and more consistent performance in competitive environments.`,
-        fixed:["tasks","identify","efficiency","agenda","actively","constructive","development","clarify","willing","productivity"]
+        transcript:`In many organizations, effective communication plays an important role in daily operations and long-term success. Employees need to exchange information clearly in order to coordinate tasks, solve problems, and make important decisions. One common challenge is information overload. Staff often receive large numbers of emails, messages, and reports, making it difficult to identify what is truly important. This approach helps reduce confusion and improves overall accuracy. Meetings are another area where communication quality matters. Effective meetings usually have a clear agenda, defined roles, and specific outcomes. When participants understand the purpose of a meeting, they are more likely to stay focused and contribute actively. Feedback is also essential for improvement. Constructive feedback should be given clearly and respectfully. This helps build trust and encourages professional development. Finally, communication should continue after decisions are made. Follow-up messages help clarify responsibilities and ensure progress. Employees are more confident and more willing to take responsibility. Overall, businesses that invest in strong communication practices often experience better teamwork, higher productivity, and more consistent performance in competitive environments.`,
+        fixed:["tasks","identify","accuracy","agenda","actively","constructive","development","clarify","willing","productivity"]
     },
     {
         audio:"https://drive.google.com/file/d/17IIS-NNdLxPZt0Wi4t4tBWOUwI2NeQve/preview",
-        transcript:`Employee motivation is a key factor that influences productivity and overall business performance. When employees feel motivated, they are more likely to work actively, take responsibility, and contribute positively to their teams. In contrast, low motivation can lead to poor results, higher absenteeism, and increased staff turnover. One important element that affects motivation is recognition. Employees want their efforts to be noticed and creative. Simple actions, such as positive feedback or public praise, can improve morale and encourage continued effort. Fair reward systems also help employees feel that their work is valued and respected by the organization. Opportunities for development are another major factor. Many employees expect their companies to provide training and chances to improve their skills. When workers see clear career opportunities, they are more likely to stay with the company and invest effort in their roles. Without such opportunities, motivation may gradually loss. The working environment also plays a significant role. Supportive managers, clear communication, and respectful relationships help employees feel confident. Managers who listen to concerns and respond clarification can prevent small issues from becoming serious problems. Finally, motivation is closely related to work-life balance. Employees who manage their time well and maintain personal well-being are often more productive at work. Companies can support this by offering flexible schedule or realistic workloads. Overall, motivated employees tend to cooperate better, show stronger commitment to their organization, and achieve more consistent results. In the long term, motivation should be treated as a strategic quality for business success across all departments and organizational levels.`,
-        fixed:["actively","creative","valued","career","loss","clarification","related","schedule","results","quality"]
-    }
-];
-
-function randomPick(arr, n) {
-    let shuffled = [...arr].sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, n);
-}
-
-function loadLesson(index) {
-    currentLesson = parseInt(index);
-    document.getElementById("audio").src = lessons[currentLesson].audio;
-    generate();
-}
-
-function generate() {
-    const lesson = lessons[currentLesson];
-    const text = lesson.transcript;
-    
-    // 1. Lấy 5 từ cố định và 5 từ ngẫu nhiên
-    const selectedFixed = randomPick(lesson.fixed, 5);
-    const allWordsRaw = text.toLowerCase().replace(/[^a-z\s]/g, "").split(/\s+/);
-    const pool = [...new Set(allWordsRaw)].filter(w => w.length > 5 && !lesson.fixed.includes(w));
-    const selectedRandom = randomPick(pool, 5);
-    const targetSet = new Set([...selectedFixed, ...selectedRandom]);
-
-    const words = text.split(/\s+/);
-    let html = "";
-    let count = 0;
-    let filledWords = new Set();
-    
-    // 2. TÍNH TOÁN KHOẢNG CÁCH (Đây là phần giúp từ rải đều)
-    // Lấy tổng số từ chia cho 10 để biết cứ sau bao nhiêu từ thì mới cho phép hiện 1 ô trống
-    const gapRequirement = Math.floor(words.length / 11); 
-    let lastFilledIndex = -gapRequirement; 
-
-    for (let i = 0; i < words.length; i++) {
-        let word = words[i];
-        let clean = word.replace(/[^a-zA-Z]/g, "").toLowerCase();
-        let punc = word.replace(/[a-zA-Z]/g, "");
-
-        // ĐIỀU KIỆN: Thuộc mục tiêu + Chưa dùng + ĐỦ KHOẢNG CÁCH + Chưa quá 10 ô
-        if (targetSet.has(clean) && 
-            !filledWords.has(clean) && 
-            (i - lastFilledIndex) >= gapRequirement && 
-            count < 10) {
-            
-            html += `<input class="blank" data-answer="${clean}" placeholder="..."> ${punc} `;
-            filledWords.add(clean);
-            lastFilledIndex = i; // Đánh dấu vị trí vừa tạo ô trống
-            count++;
-        } else {
-            html += word + " ";
-        }
-    }
-
-    // 3. Hiển thị ra màn hình
-    document.getElementById("exercise").innerHTML = html;
-    document.getElementById("score").innerText = "";
-}
-
-function check() {
-    const inputs = document.querySelectorAll(".blank");
-    let correctCount = 0;
-    const key = "wrong_words_store";
-    let stored = JSON.parse(localStorage.getItem(key)) || [];
-
-    inputs.forEach(inp => {
-        inp.classList.remove("correct", "wrong");
-        const userVal = inp.value.trim().toLowerCase();
-        const correctVal = inp.dataset.answer;
-
-        if (userVal === correctVal) {
-            inp.classList.add("correct");
-            correctCount++;
-        } else {
-            inp.classList.add("wrong");
-            inp.value = correctVal; // Hiện đáp án đúng
-            if (!stored.includes(correctVal)) stored.push(correctVal);
-        }
-    });
-
-    localStorage.setItem(key, JSON.stringify(stored));
-    const scoreText = `Kết quả: ${correctCount}/${inputs.length} (${Math.round(correctCount/inputs.length*100)}%)`;
-    document.getElementById("score").innerText = scoreText;
-}
-
-function showWrong() {
-    const stored = JSON.parse(localStorage.getItem("wrong_words_store")) || [];
-    if (stored.length === 0) {
-        alert("Chưa có từ nào sai. Cố gắng phát huy nhé! 🎉");
-    } else {
-        alert("Các từ bạn đã từng làm sai: \n\n" + stored.join(", "));
-    }
-}
-
-// Khởi tạo bài đầu tiên khi load trang
-window.onload = () => loadLesson(0);
-</script>
-
-</body>
-</html>
+        transcript:`Employee motivation is a key factor that influences productivity and overall business performance. When employees feel motivated, they are more likely to work actively, take responsibility, and contribute positively to their teams. In contrast, low motivation can lead to poor results, higher absenteeism, and increased staff turnover. One important element that affects motivation is recognition. Employees want their efforts to be noticed and creative. Simple actions, such as positive feedback or public praise, can improve morale and encourage continued effort. Fair reward systems also help employees feel that their work is valued and respected by the organization. Opportunities for development are another major factor. Many employees expect their companies to provide training and chances to improve their skills. When workers see clear career opportunities, they are more likely to stay with the company and invest effort in their roles. Without such opportunities, motivation may gradually loss. The working environment also plays a significant role. Supportive managers, clear communication, and respectful relationships help employees feel confident. Managers who listen to concerns and respond clarification can prevent small issues
