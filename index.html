@@ -102,37 +102,44 @@ function generate() {
     const lesson = lessons[currentLesson];
     const text = lesson.transcript;
     
-    // Bốc 5 từ cố định
+    // 1. Lấy 5 từ cố định và 5 từ ngẫu nhiên
     const selectedFixed = randomPick(lesson.fixed, 5);
-    
-    // Tìm danh sách từ "vệ tinh" (dài hơn 5 ký tự và không nằm trong fixed)
-    const allWords = text.toLowerCase().replace(/[^a-z\s]/g, "").split(/\s+/);
-    const pool = [...new Set(allWords)].filter(w => w.length > 5 && !lesson.fixed.includes(w));
-    
-    // Bốc 5 từ ngẫu nhiên
+    const allWordsRaw = text.toLowerCase().replace(/[^a-z\s]/g, "").split(/\s+/);
+    const pool = [...new Set(allWordsRaw)].filter(w => w.length > 5 && !lesson.fixed.includes(w));
     const selectedRandom = randomPick(pool, 5);
-    
-    // Tổng hợp 10 từ mục tiêu
-    const targets = [...selectedFixed, ...selectedRandom];
+    const targetSet = new Set([...selectedFixed, ...selectedRandom]);
 
     const words = text.split(/\s+/);
     let html = "";
     let count = 0;
-    let filledWords = [];
+    let filledWords = new Set();
+    
+    // 2. TÍNH TOÁN KHOẢNG CÁCH (Đây là phần giúp từ rải đều)
+    // Lấy tổng số từ chia cho 10 để biết cứ sau bao nhiêu từ thì mới cho phép hiện 1 ô trống
+    const gapRequirement = Math.floor(words.length / 11); 
+    let lastFilledIndex = -gapRequirement; 
 
-    for (let word of words) {
+    for (let i = 0; i < words.length; i++) {
+        let word = words[i];
         let clean = word.replace(/[^a-zA-Z]/g, "").toLowerCase();
         let punc = word.replace(/[a-zA-Z]/g, "");
 
-        if (targets.includes(clean) && !filledWords.includes(clean) && count < 10) {
+        // ĐIỀU KIỆN: Thuộc mục tiêu + Chưa dùng + ĐỦ KHOẢNG CÁCH + Chưa quá 10 ô
+        if (targetSet.has(clean) && 
+            !filledWords.has(clean) && 
+            (i - lastFilledIndex) >= gapRequirement && 
+            count < 10) {
+            
             html += `<input class="blank" data-answer="${clean}" placeholder="..."> ${punc} `;
-            filledWords.push(clean);
+            filledWords.add(clean);
+            lastFilledIndex = i; // Đánh dấu vị trí vừa tạo ô trống
             count++;
         } else {
             html += word + " ";
         }
     }
 
+    // 3. Hiển thị ra màn hình
     document.getElementById("exercise").innerHTML = html;
     document.getElementById("score").innerText = "";
 }
