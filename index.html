@@ -1,70 +1,65 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listening Practice PRO - UEH Final Edition</title>
-    <style>
-        :root { --primary: #4CAF50; --secondary: #2c3e50; --bg: #f4f7f6; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); padding: 20px; color: var(--secondary); }
-        .container { background: white; padding: 30px; border-radius: 15px; max-width: 1000px; margin: auto; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        h2 { text-align: center; color: var(--primary); margin-bottom: 25px; }
-        .controls { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; align-items: center; justify-content: center; }
-        select { padding: 10px; border-radius: 8px; border: 1px solid #ddd; font-size: 16px; min-width: 250px; cursor: pointer; }
-        iframe { width: 100%; height: 100px; border: 2px solid #eee; border-radius: 10px; margin-bottom: 20px; background: #fafafa; }
-        #exercise { line-height: 2.2; font-size: 18px; text-align: justify; background: #fff; padding: 25px; border: 1px dashed #ccc; border-radius: 10px; }
-        .blank { width: 135px; padding: 5px 10px; margin: 0 5px; border: 2px solid #ddd; border-radius: 6px; font-size: 16px; font-weight: 600; text-align: center; transition: all 0.3s; color: #2c3e50; }
-        .blank:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 5px rgba(76, 175, 80, 0.3); background: #fffef0; }
-        .correct { border-color: #4CAF50 !important; background: #eaffea !important; color: #2e7d32; }
-        .wrong { border-color: #f44336 !important; background: #ffecec !important; color: #c62828; }
-        .btn-group { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 25px; }
-        button { padding: 12px 28px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; font-size: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .btn-main { background: var(--primary); color: white; }
-        .btn-main:hover { background: #45a049; transform: translateY(-1px); }
-        .btn-sub { background: #3498db; color: white; }
-        .btn-sub:hover { background: #2980b9; transform: translateY(-1px); }
-        .btn-danger { background: #e67e22; color: white; }
-        .btn-danger:hover { background: #d35400; transform: translateY(-1px); }
-        #score { text-align: center; font-size: 24px; font-weight: bold; margin-top: 25px; color: var(--secondary); min-height: 35px; }
-    </style>
+<meta charset="UTF-8">
+<title>Listening Practice PRO</title>
+
+<style>
+body{font-family:Arial;background:#f3f3f3;padding:20px;line-height:1.6;}
+.container{background:white;padding:25px;border-radius:10px;max-width:900px;margin:auto;box-shadow: 0 4px 15px rgba(0,0,0,0.1);}
+.blank{width:110px;padding:6px;margin:2px;border:1px solid #ccc;border-radius:5px;text-align:center;font-weight:bold;color:#2c3e50;}
+.correct{border:2px solid #4CAF50;background:#eaffea;color:#2e7d32;}
+.wrong{border:2px solid #f44336;background:#ffecec;color:#c62828;}
+button{padding:10px 20px;margin:5px;border:none;border-radius:5px;background:#4CAF50;color:white;cursor:pointer;font-weight:bold;}
+button:hover{background:#45a049;}
+iframe{width:100%;height:80px;border:none;margin-bottom:15px;background:#eee;border-radius:5px;}
+select{padding:8px;border-radius:5px;border:1px solid #ccc;margin-bottom:10px;}
+#exercise{font-size:17px;text-align:justify;}
+#score{color:#2c3e50;font-weight:bold;margin-top:20px;}
+</style>
 </head>
+
 <body>
 
 <div class="container">
-    <h2>🎧 Listening Practice PRO - UEH Edition</h2>
 
-    <div class="controls">
-        <label><b>Chọn bài học:</b> </label>
-        <select id="lessonSelect" onchange="loadLesson(this.value)">
-            <option value="0">Lesson 1: Starting a Business</option>
-            <option value="1">Lesson 2: Customer Service</option>
-            <option value="2">Lesson 3: Teamwork</option>
-            <option value="3">Lesson 4: Communication</option>
-            <option value="4">Lesson 5: Motivation</option>
-        </select>
-    </div>
+<h2>🎧 Listening Practice PRO</h2>
 
-    <iframe id="audio" src=""></iframe>
+<label>Chọn bài học: </label>
+<select onchange="loadLesson(this.value)">
+<option value="0">Lesson 1: Starting a Business</option>
+<option value="1">Lesson 2: Customer Service</option>
+<option value="2">Lesson 3: Teamwork</option>
+<option value="3">Lesson 4: Communication</option>
+<option value="4">Lesson 5: Motivation</option>
+</select>
 
-    <div id="exercise"></div>
+<br>
 
-    <div class="btn-group">
-        <button class="btn-main" onclick="generate()">Làm bài mới (10 ô rải đều)</button>
-        <button class="btn-sub" onclick="check()">Kiểm tra đáp án</button>
-        <button class="btn-danger" onclick="showWrong()">Từ hay sai của bài này</button>
-    </div>
+<iframe id="audio"></iframe>
 
-    <h3 id="score"></h3>
+<h3>Exercise</h3>
+<div id="exercise"></div>
+
+<br>
+
+<button onclick="generate()">Làm bài mới</button>
+<button onclick="check()">Kiểm tra đáp án</button>
+<button onclick="showWrong()">Xem từ sai</button>
+
+<h3 id="score"></h3>
+
 </div>
 
 <script>
+
 let currentLesson = 0;
 
 const lessons = [
     {
         audio:"https://drive.google.com/file/d/1-8oGtT0TsMM9C-hwmkss2-VjD0_Xswnp/preview",
         transcript:`Starting a small business can be both exciting and challenging, especially for people who are new to the world of entrepreneurship. Before opening a business, it's important to understand your customers and what they really need. Many new owners make the mistake of focusing only on their product, but forget to research the market. A successful business usually begins with a clear problem it can solve and a group of people willing to pay for that solution. Another key idea is planning. A good business plan doesn't need to be complicated but it should include your goals, your budget and your strategy for attracting customers. When you know how much money you need and how you will spend it, you can avoid many financial problems later on. Planning also helps you stay organized when unexpected situations happen, such as changes in prices or new competition. Communication is also essential. Whether you are selling online or in a physical store, customers want clear information and friendly service. If something goes wrong, they expect you to respond quickly and honestly. Good communication builds trust, and trust leads to long-term success and stronger customer relationships. Finally, remember that every business needs time to grow. You won't become successful overnight, so stay patient and flexible. Listen to feedback, watch your competitors, and keep improving your products or services. If you learn from your mistakes and continue to adapt, you will have a better chance of building a stable and successful business that can grow for many years.`,
-        fixed:["challenging","customers","successful","complicated","budget","organized","physical","expect","feedback","adapt"]
+        fixed:["challenging","customers","successful","complicated","budget","organized","physical","honestly","feedback","adapt"]
     },
     {
         audio:"https://drive.google.com/file/d/1RjhXJlscxcYPecTwAczEfrKSUh-S9-MS/preview",
@@ -79,130 +74,102 @@ const lessons = [
     {
         audio:"https://drive.google.com/file/d/1o8GP-GzDZUqNckMriss5f-Yc2MWjC4JL/preview",
         transcript:`In many organizations, effective communication plays an important role in daily operations and long-term success. Employees need to exchange information clearly in order to coordinate tasks, solve problems, and make important decisions. Without strong communication, even skilled teams may struggle to meet deadlines or achieve their goals.
-One common challenge is information overload. Staff often receive large numbers of emails, messages, and reports, making it difficult to identify what is truly important. To reduce this problem, companies should encourage clear messages and simple language, especially when instructions or deadlines are involved. This approach helps reduce confusion and improves overall efficiently.
+One common challenge is information overload. Staff often receive large numbers of emails, messages, and reports, making it difficult to identify what is truly important. To reduce this problem, companies should encourage clear messages and simple language, especially when instructions or deadlines are involved. This approach helps reduce confusion and improves overall efficiency.
 Meetings are another area where communication quality matters. Effective meetings usually have a clear agenda, defined roles, and specific outcomes. When participants understand the purpose of a meeting, they are more likely to stay focused and contribute actively. Poorly organized meetings, however, often result in frustration and wasted time.
 Feedback is also essential for improvement. Employees want to know how they are performing and how they can develop their skills. Constructive feedback should be given clearly and respectfully, with attention placed on solutions rather than blame. This helps build trust and encourages professional development.
 Finally, communication should continue after decisions are made. Follow-up messages help clarify responsibilities, confirm deadlines, and ensure that progress is being monitored. When employees feel informed and supported, they are more confident and more willing to take responsibility.
-Overall, businesses that invest in strong communication practices often experience better teamwork, higher productivity, and more consistent performance in competitive environments.`,
-        fixed:["tasks","identify","accuracy","agenda","actively","constructive","development","clarify","willing","productivity"]
+Overall, businesses that invest in strong communication practices often experience better teamwork, higher productivity, and more consistent performance in competitive environments.
+`,
+        fixed:["tasks","identify","efficiency","agenda","actively","constructive","development","clarify","willing","productivity"]
     },
     {
         audio:"https://drive.google.com/file/d/17IIS-NNdLxPZt0Wi4t4tBWOUwI2NeQve/preview",
         transcript:`Employee motivation is a key factor that influences productivity and overall business performance. When employees feel motivated, they are more likely to work effectively, take responsibility, and contribute positively to their teams. In contrast, low motivation can lead to poor results, higher absenteeism, and increased staff turnover. One important element that affects motivation is recognition. Employees want their efforts to be noticed and appreciated. Simple actions, such as positive feedback or public praise, can improve morale and encourage continued effort. Fair reward systems also help employees feel that their work is valued and respected by the organization. Opportunities for development are another major factor. Many employees expect their companies to provide training and chances to improve their skills. When workers see clear career opportunities, they are more likely to stay with the company and invest effort in their roles. Without such opportunities, motivation may gradually decline. The working environment also plays a significant role. Supportive managers, clear communication, and respectful relationships help employees feel confident. Managers who listen to concerns and respond promptly can prevent small issues from becoming serious problems. Finally, motivation is closely linked to work-life balance. Employees who manage their time well and maintain personal well-being are often more productive at work. Companies can support this by offering flexible schedules or realistic workloads. Overall, motivated employees tend to cooperate better, show stronger commitment to their organization, and achieve more consistent results. In the long term, motivation should be treated as a strategic priority for business success across all departments and organizational levels.`,
         fixed:["effectively","appreciated","valued","career","decline","promptly","linked","schedules","results","priority"]
+
     }
 ];
 
-function randomPick(arr, n) {
-    return [...arr].sort(() => 0.5 - Math.random()).slice(0, n);
+function randomPick(arr,n){
+    return [...arr].sort(()=>0.5-Math.random()).slice(0,n);
 }
 
-function loadLesson(index) {
-    currentLesson = parseInt(index);
-    document.getElementById("audio").src = lessons[currentLesson].audio;
+function loadLesson(index){
+    currentLesson=index;
+    document.getElementById("audio").src=lessons[index].audio;
     generate();
 }
 
-function generate() {
-    const lesson = lessons[currentLesson];
-    const text = lesson.transcript;
-    
-    // 1. Chọn 5 từ cố định và 5 từ ngẫu nhiên (Luôn đủ 10 từ mục tiêu)
-    const selectedFixed = randomPick(lesson.fixed, 5);
-    const allWordsRaw = text.toLowerCase().replace(/[^a-z\s]/g, "").split(/\s+/);
-    const pool = [...new Set(allWordsRaw)].filter(w => w.length > 5 && !lesson.fixed.includes(w));
-    const selectedRandom = randomPick(pool, 5);
-    const targetSet = new Set([...selectedFixed, ...selectedRandom]);
+function generate(){
+    let lesson = lessons[currentLesson];
+    let text = lesson.transcript;
+    let targetWords = lesson.fixed; // Sử dụng đủ 10 từ bạn đã cung cấp cho mỗi bài
 
-    const words = text.split(/\s+/);
-    let count = 0;
-    let filledWords = new Set();
-    let wordObjects = [];
-
-    // Khởi tạo danh sách đối tượng từ
-    words.forEach((word, index) => {
-        let clean = word.replace(/[^a-zA-Z]/g, "").toLowerCase();
-        wordObjects.push({ original: word, clean: clean, isBlank: false, index: index });
-    });
-
-    // VÒNG 1: Rải đều theo khoảng cách (Gap)
-    const gap = Math.floor(words.length / 11);
-    let lastIndex = -gap;
-
-    for (let obj of wordObjects) {
-        if (targetSet.has(obj.clean) && !filledWords.has(obj.clean) && (obj.index - lastIndex) >= gap && count < 10) {
-            obj.isBlank = true;
-            filledWords.add(obj.clean);
-            lastIndex = obj.index;
-            count++;
-        }
-    }
-
-    // VÒNG 2: Lấp đầy (Nếu Vòng 1 chưa đủ 10 ô do đoạn văn quá ngắn)
-    if (count < 10) {
-        for (let obj of wordObjects) {
-            if (count >= 10) break;
-            if (!obj.isBlank && targetSet.has(obj.clean) && !filledWords.has(obj.clean)) {
-                obj.isBlank = true;
-                filledWords.add(obj.clean);
-                count++;
-            }
-        }
-    }
-
-    // 2. Chuyển đổi thành HTML
+    let words = text.split(/\s+/); 
     let html = "";
-    wordObjects.forEach(obj => {
-        if (obj.isBlank) {
-            let punc = obj.original.replace(/[a-zA-Z]/g, "");
-            html += `<input class="blank" data-answer="${obj.clean}" placeholder="..."> ${punc} `;
+    let count = 0;
+    
+    // Tạo bản sao để đánh dấu những từ đã được chuyển thành ô trống (tránh trùng)
+    let usedInThisRound = [];
+
+    for(let w of words){
+        // Làm sạch từ (bỏ dấu câu) để so sánh
+        let clean = w.replace(/[^a-zA-Z]/g,"").toLowerCase();
+        // Lấy dấu câu đi kèm (nếu có)
+        let punctuation = w.replace(/[a-zA-Z]/g,"");
+
+        if(targetWords.includes(clean) && !usedInThisRound.includes(clean) && count < 10){
+            html += `<input class="blank" data-answer="${clean}" placeholder="..."> ${punctuation} `;
+            usedInThisRound.push(clean);
+            count++;
         } else {
-            html += obj.original + " ";
+            html += w + " ";
         }
-    });
+    }
 
     document.getElementById("exercise").innerHTML = html;
     document.getElementById("score").innerText = "";
 }
 
-function check() {
-    const inputs = document.querySelectorAll(".blank");
-    if (inputs.length === 0) return;
-
-    let correctCount = 0;
-    const key = "wrong_lesson_v2_" + currentLesson;
-    let stored = JSON.parse(localStorage.getItem(key)) || [];
+function check(){
+    let inputs = document.querySelectorAll(".blank");
+    let correct = 0;
+    let key = "wrong_" + currentLesson;
+    let wrongWords = JSON.parse(localStorage.getItem(key)) || [];
 
     inputs.forEach(inp => {
         inp.classList.remove("correct", "wrong");
-        const userVal = inp.value.trim().toLowerCase();
-        const correctVal = inp.dataset.answer;
+        let ans = inp.dataset.answer;
+        let user = inp.value.trim().toLowerCase();
 
-        if (userVal === correctVal) {
+        if(user === ans){
             inp.classList.add("correct");
-            correctCount++;
+            correct++;
         } else {
             inp.classList.add("wrong");
-            inp.value = correctVal; // Hiện đáp án đúng để học
-            if (!stored.includes(correctVal)) stored.push(correctVal);
+            // Hiển thị đáp án đúng vào ô nếu sai (tùy chọn)
+            inp.value = ans; 
+            if(!wrongWords.includes(ans)) wrongWords.push(ans);
         }
     });
 
-    localStorage.setItem(key, JSON.stringify(stored));
-    document.getElementById("score").innerText = `Kết quả: ${correctCount}/${inputs.length} (${Math.round(correctCount/inputs.length*100)}%)`;
+    localStorage.setItem(key, JSON.stringify(wrongWords));
+    let percent = Math.round(correct/inputs.length*100);
+    document.getElementById("score").innerText = `Kết quả: ${correct}/${inputs.length} (${percent}%)`;
 }
 
-function showWrong() {
-    const key = "wrong_lesson_v2_" + currentLesson;
-    const stored = JSON.parse(localStorage.getItem(key)) || [];
-    if (stored.length === 0) {
-        alert("Chưa có từ nào sai ở bài này. Cố gắng phát huy nhé Ngà! 🎉");
+function showWrong(){
+    let key = "wrong_" + currentLesson;
+    let wrongWords = JSON.parse(localStorage.getItem(key)) || [];
+    if(wrongWords.length === 0){
+        alert("Tuyệt vời! Bạn không có từ nào sai. 🎉");
     } else {
-        alert("Các từ bạn từng điền sai ở Bài " + (currentLesson + 1) + ":\n\n" + stored.join(", "));
+        alert("Các từ bạn cần chú ý: " + wrongWords.join(", "));
     }
 }
 
 window.onload = () => loadLesson(0);
+
 </script>
 
 </body>
